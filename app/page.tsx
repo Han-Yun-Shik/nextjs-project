@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import axios from "axios"; // axios import
 
 export default function Home() {
-  const [data, setData] = useState<{ wr_seq?: number; wr_field_eng: string }[]>([]);
+  const [data, setData] = useState<{ wr_seq?: number; wr_name: string }[]>([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get("http://jiles.cafe24app.com/getCustomFields");
+        const res = await axios.get("http://arumcnc7.cafe24app.com/blist");
         if (Array.isArray(res.data)) {
           setData(res.data);
         } else {
@@ -24,10 +24,10 @@ export default function Home() {
 
   return (
     <div>
-      <h1>MySQL Data</h1>
+      <h1>MySQL Data2</h1>
       <ul>
         {data.map((item, index) => (
-          <li key={item.wr_seq ?? `fallback-key-${index}`}>{item.wr_field_eng}</li>
+          <li key={item.wr_seq ?? `fallback-key-${index}`}>{item.wr_name}</li>
         ))}
       </ul>
     </div>
