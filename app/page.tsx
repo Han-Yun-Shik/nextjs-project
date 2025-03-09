@@ -1,7 +1,7 @@
-"use client"; // 클라이언트 컴포넌트로 설정
+"use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios"; // axios import
+import axios from "axios";
 
 export default function Home() {
   const [data, setData] = useState<{ wr_seq?: number; wr_name: string }[]>([]);
@@ -9,7 +9,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get("http://arumcnc7.cafe24app.com/blist");
+        const res = await axios.get("/api/proxy"); // Next.js API 경유
         if (Array.isArray(res.data)) {
           setData(res.data);
         } else {
@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>MySQL Data2</h1>
+      <h1>MySQL Data3</h1>
       <ul>
         {data.map((item, index) => (
           <li key={item.wr_seq ?? `fallback-key-${index}`}>{item.wr_name}</li>
