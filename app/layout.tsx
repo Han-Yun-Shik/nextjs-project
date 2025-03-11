@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="hdr_navi_wrap">
+          <Link href="/">Home</Link> | 
+          <Link href="/bbs/blist">글목록</Link> | 
+          <Link href="/bbs/bwrite">글쓰기</Link> | 
+          <Link href="/bbs/plist">갤러리 목록</Link> | 
+          <Link href="/bbs/pwrite">갤러리 등록</Link>
+        </div>
+
         {children}
       </body>
     </html>
