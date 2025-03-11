@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8001";
+
 export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -10,7 +12,7 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ error: "ID 누락" }, { status: 400 });
     }
 
-    const res = await axios.delete(`http://arumcnc7.cafe24app.com/api/delete/${wr_seq}`);
+    const res = await axios.delete(`${API_BASE_URL}/api/delete/${wr_seq}`);
 
     return NextResponse.json(res.data);
   } catch (error) {

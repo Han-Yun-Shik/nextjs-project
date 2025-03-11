@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8001";
+
 export async function PUT(req: Request) {
   try {
     const { wr_seq, wr_name, wr_email } = await req.json();
     console.log("전송 데이터:", { wr_seq, wr_name, wr_email });
 
-    const res = await axios.put(`http://arumcnc7.cafe24app.com/api/update/${wr_seq}`, {
+    const res = await axios.put(`${API_BASE_URL}/api/update/${wr_seq}`, {
       wr_name,
       wr_email,
     });

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8001";
+
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -10,7 +12,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "ID 누락" }, { status: 400 });
     }
 
-    const res = await axios.get(`http://arumcnc7.cafe24app.com/api/read/${wr_seq}`);
+    const res = await axios.get(`${API_BASE_URL}/api/read/${wr_seq}`);
     
     return NextResponse.json(res.data);
   } catch (error) {
