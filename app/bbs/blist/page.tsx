@@ -41,6 +41,10 @@ export default function Blist() {
             alert("삭제 중 오류가 발생했습니다.");
         }
     };
+
+    if (!data) {
+        return <p>Loading...</p>;
+      }
     
 
     return (
