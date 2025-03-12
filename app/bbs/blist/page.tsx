@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export default function Blist() {
     const [data, setData] = useState<{ wr_seq?: number; wr_name: string }[]>([]);
+    const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
     useEffect(() => {
         async function fetchData() {
@@ -18,6 +19,8 @@ export default function Blist() {
                 }
             } catch (error) {
                 console.error("데이터 불러오기 오류:", error);
+            } finally {
+                setLoading(false); // 데이터 요청 완료 후 로딩 해제
             }
         }
         fetchData();
@@ -42,24 +45,27 @@ export default function Blist() {
         }
     };
 
-    if (!data) {
+    if (loading) {
         return <p>Loading...</p>;
-      }
-    
+    }
 
     return (
         <div>
             <h1>글목록</h1>
-            <ul>
-                {data.map((item, index) => (
-                    <li key={item.wr_seq ?? `fallback-key-${index}`} className="ar_li_wrap">
-                        {item.wr_name}
-                        <Link href={`/bbs/bedit/${item.wr_seq}`} className="ar_btn_submit">Edit</Link>
-                        <Link href={`/bbs/bread/${item.wr_seq}`} className="ar_btn_submit">Read</Link>
-                        <button onClick={() => handleDelete(item.wr_seq)} className="ar_btn_submit">Delete</button>
-                    </li>
-                ))}
-            </ul>
+            {data.length === 0 ? (
+                <p>데이터가 없습니다.</p>
+            ) : (
+                <ul>
+                    {data.map((item, index) => (
+                        <li key={item.wr_seq ?? `fallback-key-${index}`} className="ar_li_wrap">
+                            {item.wr_name}
+                            <Link href={`/bbs/bedit/${item.wr_seq}`} className="ar_btn_submit">Edit</Link>
+                            <Link href={`/bbs/bread/${item.wr_seq}`} className="ar_btn_submit">Read</Link>
+                            <button onClick={() => handleDelete(item.wr_seq)} className="ar_btn_submit">Delete</button>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }
